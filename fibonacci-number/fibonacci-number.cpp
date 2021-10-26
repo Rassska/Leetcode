@@ -1,17 +1,21 @@
 class Solution {
 public:
-    
-    int fibCount(int n) {
+    int fib(int n) {
         if (n == 0) {
             return 0;
         } else if (n == 1) {
             return 1;
-        } else {
-            return fibCount (n - 1) + fibCount(n - 2);
+        } else if (n == 2) {
+            return 1;
         }
-    }
-    
-    int fib(int n) {
-        return fibCount(n);
+        std::vector<int> dp(n + 1);
+        dp[0] = 0;
+        dp[1] = 1;
+        dp[2] = 1;
+        
+        for (std::size_t i = 3; i <= n; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+        }
+        return dp[n];
     }
 };
