@@ -1,26 +1,19 @@
 class Solution {
 public:
     int maxArea(vector<int>& height) {
-        std::size_t n = height.size();
-        std::size_t ans = 0;
-       
         
-        std::size_t right = n - 1;
-        std::size_t left = 0;
-        
+        int left = 0;
+        int right = height.size() - 1;
+        int maxArea = 0;
         while (left < right) {
-            std::size_t currAns = (std::min(height[left], height[right]) * (right - left));
-            ans = std::max(ans, currAns);
+            maxArea = std::max(maxArea, std::min(height[right], height[left]) * (right - left));
             if (height[left] < height[right]) {
                 left++;
             } else {
                 right--;
             }
         }
-        
-        return ans;
-        
-        
+        return maxArea;
         
         
     }
