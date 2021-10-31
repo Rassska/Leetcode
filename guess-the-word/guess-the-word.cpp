@@ -9,37 +9,22 @@
 class Solution {
 public:
     
-    int getMatchDistance (const std::string& firstWord, const std::string& secondWord) {
-        int ans = 0;
-        
-        for (std::size_t i = 0; i < firstWord.size(); i++) {
-            if (firstWord[i] == secondWord[i]) 
-                ans++;
-        }
-        return ans;
-    }
-    
-    
-    
     void findSecretWord(vector<string>& wordlist, Master& master) {
-        int length = wordlist.size();
-        
-        for (unsigned char i = 0; i < 10; ++i) {
-            int pos = length / 2;
-            std::string selectedWord = wordlist[pos];
-            int numMasterMatch = master.guess(selectedWord);
-            if (numMasterMatch == 6) {
-                return ;
-            }
-            for (int k = 0; k < length; k++) {
-                if (getMatchDistance(selectedWord, wordlist[k]) != numMasterMatch) {
-                    length--;
-                    wordlist[k] = wordlist[length];
+        srand(1); 
+        random_shuffle(wordlist.begin(), wordlist.end()); 
+        for (int step = 0; step < 10; ++step) 
+            if (wordlist.size()) {
+                string w = wordlist.back(); 
+                wordlist.pop_back(); 
+                int m = master.guess(w); 
+                vector<string> temp; 
+                for (auto& ww : wordlist) {
+                    int cnt = 0; 
+                    for (int i = 0; i < w.size(); ++i) 
+                        if (w[i] == ww[i]) ++cnt; 
+                    if (cnt == m) temp.push_back(ww); 
                 }
-                
+                wordlist = temp; 
             }
-            
-        }
-        
     }
 };
