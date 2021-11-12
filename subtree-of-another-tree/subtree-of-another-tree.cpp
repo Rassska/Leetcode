@@ -12,27 +12,41 @@
 class Solution {
 public:
     
-    bool isSame(TreeNode* root, TreeNode* subRoot) {
-        if (root == nullptr && subRoot == nullptr) {
-           return true;
-        }
-        if (root == nullptr || subRoot == nullptr) {
-            return false;
-        }
+    std::hash<string> hash_str;
+    
+    long long hashing(TreeNode* nd){
+        if(nd==NULL)
+            return LONG_MAX;
         
-        return root->val == subRoot->val && (isSame(root->left, subRoot->left) && isSame(root->right, subRoot->right));
+        long long left_hash = hashing(nd->left);
+        long long right_hash = hashing(nd->right);
+        
+        string to_hash = to_string(left_hash) + to_string(nd->val) + to_string(right_hash);
+        long long nd_hash = hash_str(to_hash);
+        return nd_hash;
+    }
+    
+    long long checkSub(TreeNode* nd, long long &hashSub, bool &res){
+        if(nd==NULL)
+            return LONG_MAX;
+        
+        long long left_hash = checkSub(nd->left, hashSub, res);
+        long long right_hash = checkSub(nd->right, hashSub, res);
+        
+        string to_hash = to_string(left_hash) + to_string(nd->val) + to_string(right_hash);
+        long long nd_hash = hash_str(to_hash);
+        
+        if(hashSub == nd_hash)
+            res = true;
+        
+        return nd_hash;
     }
     
     bool isSubtree(TreeNode* root, TreeNode* subRoot) {
-        if (root == nullptr || subRoot == nullptr) {
-            return false;
-        }
-        if (isSame(root, subRoot)) {
-            return true;
-        }
-        
-        return isSubtree(root->left, subRoot) || isSubtree(root->right, subRoot);
-        
+        long long hashSub = hashing(subRoot);
+        bool res = false;
+        checkSub(root, hashSub, res);
+        return res;
     }
     
 };
