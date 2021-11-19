@@ -1,3 +1,4 @@
+[Discussion Post (created on 19/10/2021 at 11:6)](https://leetcode.com/problems/shortest-distance-to-target-color/discuss/1586076/O(n-%2B-q)-oror-prefix-suffix-holding-technique-oror-Good-to-know-for-problems-with-queries)  
 <h2>1182. Shortest Distance to Target Color</h2><h3>Medium</h3><hr><div><p>You are given an array <code>colors</code>, in which there are three colors: <code>1</code>, <code>2</code> and&nbsp;<code>3</code>.</p>
 
 <p>You are also given some queries. Each query consists of two integers <code>i</code>&nbsp;and <code>c</code>, return&nbsp;the shortest distance between the given index&nbsp;<code>i</code> and the target color <code>c</code>. If there is no solution return <code>-1</code>.</p>
