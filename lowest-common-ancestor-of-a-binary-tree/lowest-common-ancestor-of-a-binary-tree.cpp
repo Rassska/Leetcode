@@ -10,25 +10,28 @@
 class Solution {
 public:
     TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
-        findLCA(root, p, q);
+        
+        dfs(root, p, q);
         return lca;
     }
     
-    bool findLCA (TreeNode* root, TreeNode* p, TreeNode* q) {
+    bool dfs (TreeNode* root, TreeNode* p, TreeNode* q) {
         if (root == nullptr) {
             return false;
         }
-        bool x = findLCA(root->left, p, q);
-        bool y = findLCA (root->right, p, q);
-        bool curr = root == q || root == p;
         
-        if ((x && y) || (curr && x) || (curr && y)) {
+        
+        int left = dfs(root->left, p, q);
+        int right = dfs(root->right, p, q);
+        
+        int mid = (root == p || root == q);
+        
+        if (right + mid + left >= 2) {
             lca = root;
         }
-        return x || y || curr;
-        
-        
+        return (mid + left + right > 0);
     }
-private:
+private: 
     TreeNode* lca = nullptr;
+
 };
