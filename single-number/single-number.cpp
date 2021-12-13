@@ -1,19 +1,10 @@
 class Solution {
 public:
     int singleNumber(vector<int>& nums) {
-        
-        std::unordered_map<int, int> hashMap;
-        
+        int x = 0;
         for (auto num : nums) {
-            hashMap[num]++;
+            x ^= num;
         }
-        
-        
-        for (auto it = hashMap.begin(); it != hashMap.end(); it++) {
-            if (it->second == 1) {
-                return it->first;
-            }
-        }
-        return -1;
+        return x;
     }
 };
