@@ -2,29 +2,15 @@ class Solution {
 public:
     int minCostClimbingStairs(vector<int>& cost) {
         
+        std::vector<int> dp(cost.size() + 5);
+        dp[0] = cost[0];
+        dp[1] = cost[1];
         
-        
-        /*
-        dp[0] = 0;
-        dp[1] = 10;
-        dp[2] = 15;
-        dp[3] = 30;
-        dp[4] = 15;
-        
-        
-        */ 
-        std::vector<int> dp(cost.size() + 2);
-        dp[0] = 0;
-        dp[1] = cost[0];
-        for (std::size_t i = 2; i <= cost.size() + 1; i++) {
-            if (i - 1 < cost.size()) {
-                dp[i] = std::min((dp[i - 2] + cost[i - 1]), (dp[i - 1] + cost[i - 1]));
-            } else {
-                dp[i] = std::min(dp[i - 2], dp[i - 1]);
-            }
-            
+        for (std::size_t i = 2; i < cost.size(); i++) {
+            dp[i] = std::min(dp[i - 1] + cost[i], dp[i - 2] + cost[i]);
         }
-        return dp[cost.size() + 1];
+        dp[cost.size()] = std::min(dp[cost.size() - 1], dp[cost.size() - 2]);
+        return dp[cost.size()];
         
         
     }
