@@ -3,9 +3,9 @@ class helper {
 public:
     bool operator()(std::string& s1, std::string& s2) {
         if (s1.size() == s2.size()) {
-            return s2 > s1;
+            return s2 < s1;
         }
-        return s2.size() > s1.size();
+        return s2.size() < s1.size();
     }
 };
 
@@ -16,7 +16,7 @@ public:
         for (auto& num : nums) {
             maxHeap.push(num);
         }
-        k--;
+        k = nums.size() - k;
         while (k--) {
             maxHeap.pop();
         }
