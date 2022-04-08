@@ -3,8 +3,6 @@ from copy import deepcopy
 class Solution:
   def maxPoints(self, points: List[List[int]]) -> int:
 
-    if not points:
-        return 0
     res = max(points[0])
 
     for r in range(1, len(points)):
